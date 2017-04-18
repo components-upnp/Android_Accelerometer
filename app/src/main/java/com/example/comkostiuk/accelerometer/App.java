@@ -13,6 +13,10 @@ import android.os.Bundle;
 import com.example.comkostiuk.accelerometer.upnp.Service;
 
 import org.fourthline.cling.android.AndroidUpnpServiceImpl;
+import org.fourthline.cling.model.meta.ActionArgument;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class App extends AppCompatActivity {
 
@@ -20,41 +24,44 @@ public class App extends AppCompatActivity {
     private Sensor acclerometer = null;
     private ServiceConnection serviceConnection;
     private Service service;
-
-    StringBuilder builder = new StringBuilder();
-
-    float [] history = new float[2];
-    String [] direction = {"NONE","NONE"};
+    private boolean emit;
 
     final SensorEventListener sensorEventListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
-            float xChange = history[0] - event.values[0];
-            float yChange = history[1] - event.values[1];
 
-            history[0] = event.values[0];
-            history[1] = event.values[1];
+            Direction direction = Direction.AUCUN;
 
-            if (xChange > 0.3){
-                direction[0] = "LEFT";
-            }
-            else if (xChange < -2){
-                direction[0] = "RIGHT";
-            }
 
-            if (yChange > 2){
-                direction[1] = "DOWN";
+            if (event.values[0] < -4.5 ){
+                direction = Direction.DROITE;
+                System.out.println("DROITE");
             }
-            else if (yChange < -2){
-                direction[1] = "UP";
+            else if (event.values[0] > 4.5 ){
+                direction = Direction.GAUCHE;
+                System.out.println("GAUCHE");
             }
 
-            builder.setLength(0);
-            builder.append("x: ");
-            builder.append(direction[0]);
-            builder.append(" y: ");
-            builder.append(direction[1]);
+            /*if (event.values[1] > 4.5 && (direction != Direction.AUCUN) ){
+                direction = Direction.BAS;
+                System.out.println("BAS");
+            }
+            else if ((event.values[1] < -4.5 && (direction != Direction.AUCUN)) ){
+                direction = Direction.HAUT;
+                System.out.println("HAUT");
+            }*/
 
+            if ((service.getAccelerometerService() != null) && emit && (direction != Direction.AUCUN)) {
+                emit = false;
+                service.getAccelerometerService().getManager().getImplementation().setDirection(direction.toString());
+                service.getAccelerometerService().getManager().getImplementation().setDirection("AUCUN");
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        emit = true;
+                    }
+                },1000);
+            }
         }
 
         @Override
@@ -69,20 +76,24 @@ public class App extends AppCompatActivity {
         setContentView(R.layout.activity_app);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        acclerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
-        sensorManager.registerListener(sensorEventListener,
-                acclerometer,
-                SensorManager.SENSOR_DELAY_FASTEST);
+        acclerometer = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
 
         service = new Service();
-        serviceConnection = service.getService();
+        serviceConnection = null;
+        emit = true;
+
+        while (serviceConnection == null)
+            serviceConnection = service.getService();
 
         getApplicationContext().bindService(
                 new Intent(this, AndroidUpnpServiceImpl.class),
                 serviceConnection,
                 Context.BIND_AUTO_CREATE
         );
+
+        sensorManager.registerListener(sensorEventListener,
+                acclerometer,
+                100000);
     }
 
     @Override
@@ -98,5 +109,13 @@ public class App extends AppCompatActivity {
         sensorManager.registerListener(sensorEventListener,
                 acclerometer,
                 SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    public static void pause(long ms){
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        }
     }
 }

@@ -7,3 +7,7 @@
 /build
 /captures
 .externalNativeBuild
+/.idea/
+app/libs/
+app/src/main/res/com.example.comkostiuk.upnp/
+app/src/main/res/drawable/

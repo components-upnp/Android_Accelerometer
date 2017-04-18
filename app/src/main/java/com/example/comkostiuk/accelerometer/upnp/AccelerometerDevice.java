@@ -1,5 +1,6 @@
 package com.example.comkostiuk.accelerometer.upnp;
 
+import org.fourthline.cling.binding.LocalServiceBindingException;
 import org.fourthline.cling.binding.annotations.AnnotationLocalServiceBinder;
 import org.fourthline.cling.model.DefaultServiceManager;
 import org.fourthline.cling.model.ValidationException;
@@ -19,8 +20,8 @@ import org.fourthline.cling.model.types.UDN;
 
 public class AccelerometerDevice {
 
-    static LocalDevice createDevice(UDN udn) throws ValidationException {
-        DeviceType type = new UDADeviceType("Accelerometer Device",1);
+    static LocalDevice createDevice(UDN udn) throws ValidationException, LocalServiceBindingException {
+        DeviceType type = new UDADeviceType("AccelerometerDevice",1);
 
         DeviceDetails details =
                 new DeviceDetails(

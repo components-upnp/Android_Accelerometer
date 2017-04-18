@@ -38,7 +38,8 @@ public class Service {
                         upnpService.getRegistry().addDevice(remoteDevice);
 
                     } catch (Exception ex) {
-                        System.err.println("Creating Android remote controller device failed !!!");
+                        System.err.println("Creating Android remote controller device failed !!!" );
+                        ex.printStackTrace();
                         return;
                     }
                 }
@@ -51,7 +52,7 @@ public class Service {
         };
     }
 
-    private LocalService<AccelerometerController> getAccelerometerService() {
+    public LocalService<AccelerometerController> getAccelerometerService() {
         if (upnpService == null)
             return null;
 
