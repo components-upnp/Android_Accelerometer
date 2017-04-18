@@ -9,7 +9,7 @@ grâce à l'accélération linéaire.
 On peut utiliser ce composant afin de faire défiler des slides avec des mouvements sur la gauche et la droite, ouvrir ou fermer 
 un volet connecté en UPnP.
 
-<strong>Installation:<strong>
+<strong>Installation:</strong>
 Connecter le terminal Android à la machine, accepter le deboggage USB puis lancer l'application depuis l'IDE Adnroid Studio, 
 en choisissant le terminal préalablement connecté.
 
