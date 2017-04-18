@@ -10,6 +10,7 @@ On peut utiliser ce composant afin de faire défiler des slides avec des mouveme
 un volet connecté en UPnP.
 
 <strong>Installation:</strong>
+
 Connecter le terminal Android à la machine, accepter le deboggage USB puis lancer l'application depuis l'IDE Adnroid Studio, 
 en choisissant le terminal préalablement connecté.
 
