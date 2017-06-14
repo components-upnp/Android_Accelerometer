@@ -32,6 +32,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </service>
+
+        <service android:name=".main.AppService$NotificationActionService" android:exported="true">
+            <intent-filter>
+                <action android:name="ACTION_1"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
