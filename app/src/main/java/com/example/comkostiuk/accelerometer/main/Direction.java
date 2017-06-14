@@ -1,4 +1,4 @@
-package com.example.comkostiuk.accelerometer;
+package com.example.comkostiuk.accelerometer.main;
 
 /**
  * Created by comkostiuk on 18/04/2017.

@@ -10,8 +10,6 @@ import org.fourthline.cling.model.meta.LocalService;
 import org.fourthline.cling.model.types.UDAServiceType;
 import org.fourthline.cling.model.types.UDN;
 
-import java.util.UUID;
-
 /**
  * Created by comkostiuk on 14/04/2017.
  */
@@ -32,7 +30,7 @@ public class Service {
 
                 if (accelerometerControllerLocalService == null) {
                     try {
-                        udnAccelerometer = new UDN(UUID.randomUUID());
+                        udnAccelerometer = new SaveUdn().getUdn();
                         LocalDevice remoteDevice = AccelerometerDevice.createDevice(udnAccelerometer);
 
                         upnpService.getRegistry().addDevice(remoteDevice);
@@ -61,10 +59,14 @@ public class Service {
             return null;
 
         return (LocalService<AccelerometerController>)
-                remoteDevice.findService(new UDAServiceType("AccelerometerController", 1));
+                remoteDevice.findService(new UDAServiceType("AccelerometerService", 1));
     }
 
     public ServiceConnection getService() {
         return serviceConnection;
+    }
+
+    public UDN getUdnAccelerometer() {
+        return udnAccelerometer;
     }
 }

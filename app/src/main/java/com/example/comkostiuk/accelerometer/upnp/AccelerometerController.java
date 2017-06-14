@@ -14,9 +14,12 @@ import java.beans.PropertyChangeSupport;
  * Created by comkostiuk on 14/04/2017.
  */
 
+
+/*Description du service UPnP offert par le composant Accelerometer
+* */
 @UpnpService(
-        serviceId =  @UpnpServiceId("AccelerometerController"),
-        serviceType = @UpnpServiceType(value = "AccelerometerController", version = 1)
+        serviceId =  @UpnpServiceId("AccelerometerService"),
+        serviceType = @UpnpServiceType(value = "AccelerometerService", version = 1)
 )
 public class AccelerometerController {
 

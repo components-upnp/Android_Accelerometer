@@ -4,6 +4,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/activity_app"
-    tools:context="com.example.comkostiuk.accelerometer.App">
+    tools:context="com.example.comkostiuk.accelerometer.main.App">
 
 </LinearLayout>

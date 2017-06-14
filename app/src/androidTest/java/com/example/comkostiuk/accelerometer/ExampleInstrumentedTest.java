@@ -1,6 +1,7 @@
 package com.example.comkostiuk.accelerometer;
 
 import android.content.Context;
+import android.hardware.SensorEvent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -22,5 +23,7 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.example.comkostiuk.accelerometer", appContext.getPackageName());
+
+
     }
 }
