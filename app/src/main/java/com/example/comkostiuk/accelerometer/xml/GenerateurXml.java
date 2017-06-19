@@ -36,7 +36,7 @@ public class GenerateurXml {
         root.appendChild(u);
         u.appendChild(doc.createTextNode(udn.toString()));
 
-        Element c = doc.createElementNS(namespace, "Direction");
+        Element c = doc.createElementNS(namespace, "Commande");
         root.appendChild(c);
 
         c.appendChild(doc.createTextNode(dir));
